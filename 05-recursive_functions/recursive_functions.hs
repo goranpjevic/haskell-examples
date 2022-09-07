@@ -4,6 +4,14 @@ and' [] = True
 and' (x:xs) | x == False = False
             | otherwise  = and' xs
 
+and'' :: [Bool] -> Bool
+and'' [] = True
+and'' (x:xs) = (x /= False) && and'' xs
+
+and''' :: [Bool] -> Bool
+and''' [] = True
+and''' (x:xs) = x && and''' xs
+
 -- concatenate a list of lists
 concat' :: [[a]] -> [a]
 concat' [] = []
@@ -24,6 +32,10 @@ elem' :: Eq a => a -> [a] -> Bool
 elem' _ [] = False
 elem' n (x:xs) | x == n = True
                | otherwise = elem' n xs
+
+elem'' :: Eq a => a -> [a] -> Bool
+elem'' _ [] = False
+elem'' n (x:xs) = (x == n) || elem'' n xs
 
 -- merge two sorted lists into one sorted list
 merge :: Ord a => [a] -> [a] -> [a]
