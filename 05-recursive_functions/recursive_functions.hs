@@ -50,3 +50,21 @@ msort [] = []
 msort [x] = [x]
 msort xs = merge (msort (take l xs)) (msort (drop l xs))
            where l = div (length xs) 2
+
+-- insertion sort
+ins:: Ord a => a -> [a] -> [a]
+ins x [] = [x]
+ins x (y:ys) | x <= y = x : (y:ys)
+             | otherwise = y : ins x ys
+
+isortiter :: Ord a => [a] -> [a] -> [a]
+isortiter xs [] = xs
+isortiter xs (y:ys) = isortiter (ins y xs) ys
+
+isort :: Ord a => [a] -> [a]
+isort [] = []
+isort xs = isortiter [] xs
+
+isort' :: Ord a => [a] -> [a]
+isort' [] = []
+isort' (x:xs) = ins x (isort' xs)
